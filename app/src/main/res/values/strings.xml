@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Maxwell\'s Demon</string>
+    <string name="play_button">Play</string>
+    <string name="settings_button">Settings</string>
+    <string name="about_button">About</string>
+    <string name="lock_levels_button">Lock Levels</string>
+
+    <string name="game_activity_title">Level *</string>
+</resources>

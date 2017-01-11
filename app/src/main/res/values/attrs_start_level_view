@@ -1,0 +1,10 @@
+<resources>
+    <declare-styleable name="StartLevelView">
+        <attr name="level" format="integer"/>
+        <attr name="numRedBalls" format="integer"/>
+        <attr name="numPurpleBalls" format="integer"/>
+        <attr name="numBlueBalls" format="integer"/>
+        <attr name="chambers" format="string"/> <!-- formatted like "blue;purple;red" -->
+        <attr name="doorWidth" format="float"/> <!-- proportion of chamber width that is the door width -->
+    </declare-styleable>
+</resources>

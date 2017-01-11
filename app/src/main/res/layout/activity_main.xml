@@ -1,0 +1,95 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <me.alexfischer.maxwellsdemon.MainBackgroundView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/mainBackgroundView"/>
+
+    <android.support.v7.widget.GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        grid:alignmentMode="alignBounds"
+        grid:columnCount="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            grid:layout_columnWeight="1"
+            grid:layout_gravity="fill"
+            grid:layout_rowWeight="1">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/app_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerHorizontal="true"
+            grid:alignmentMode="alignBounds"
+            grid:columnCount="3"
+            grid:layout_columnWeight="1"
+            grid:layout_gravity="fill"
+            grid:layout_rowWeight="1">
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                grid:layout_columnWeight="1"
+                grid:layout_gravity="fill"
+                grid:layout_rowWeight="1"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                grid:layout_columnWeight="2"
+                grid:layout_gravity="fill"
+                grid:layout_rowWeight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/mainPlayButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/play_button"
+                        android:onClick="onPlayButtonClick" />
+
+                    <Button
+                        android:id="@+id/mainSettingsButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_button"
+                        android:onClick="onSettingsButtonClick" />
+
+                    <Button
+                        android:id="@+id/mainAboutButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_button"
+                        android:onClick="onAboutButtonClick" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                grid:layout_columnWeight="1"
+                grid:layout_gravity="fill"
+                grid:layout_rowWeight="1"/>
+
+        </android.support.v7.widget.GridLayout>
+    </android.support.v7.widget.GridLayout>
+</FrameLayout>
