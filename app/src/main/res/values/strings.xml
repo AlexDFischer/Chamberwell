@@ -10,8 +10,11 @@
     <string name="levels_activity_title">Levels</string>
 
     <string name="settings_activity_title">Settings</string>
-        <string name="settings_sensitivity">Sensitivity:</string>
-        <string name="settings_lock_all_button">Lock All Levels</string>
+    <string name="settings_sensitivity">Sensitivity:</string>
+    <string name="settings_lock_all_button">Lock All Levels</string>
+
+    <string name="about_activity_title">About</string>
+    <string name="about_text">Copyright © 2017 Alex Fischer, All Rights Reserved. See alexfischer.me for more information.</string>
 
     <string name="admob_app_id">ca-app-pub-8119969654620410~1595620887</string>
     <string name="main_banner_ad_unit_id">ca-app-pub-8119969654620410/3072354089</string>

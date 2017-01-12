@@ -12,11 +12,6 @@ import android.widget.NumberPicker;
 public class SettingsActivity extends AppCompatActivity
 {
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return true;
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -39,6 +34,11 @@ public class SettingsActivity extends AppCompatActivity
         sensitivityPicker.setValue(Static.pref.getInt(Static.sensitivityString, 50));
         Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
         sensitivityPicker.setOnValueChangedListener(new SensitivityListener());
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 
     @Override
