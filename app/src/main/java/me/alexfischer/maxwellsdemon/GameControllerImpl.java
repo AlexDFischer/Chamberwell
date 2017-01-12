@@ -320,9 +320,10 @@ class GameControllerImpl implements GameController
                     ball.loc.x = WALL_WIDTH + BALL_RADIUS + r.nextInt(xRange);
                     ball.loc.y = WALL_WIDTH + BALL_RADIUS + r.nextInt(yRange);
                 } while (!isValidStart(ball));
-                Vector v = new Vector(0, ballSpeed);
-                v.setArgument(r.nextDouble() * 2 * Math.PI);
-                ball.v = v;
+               ball.v = new Vector(0, ballSpeed);
+                // set the argument to be somewhat vertical so we don't get horizontally moving balls
+                double argument = (Math.PI / 6 + 2 * Math.PI / 3 * r.nextDouble()) * (r.nextBoolean() ? 1 : -1);
+                ball.v.setArgument(argument);
             }
             paint(canvas);
         }
