@@ -3,11 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:grid="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="me.alexfischer.maxwellsdemon.LevelsActivity">
+
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/adView"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-8119969654620410/1497889280"/>
 
     <Button
         android:id="@+id/button"

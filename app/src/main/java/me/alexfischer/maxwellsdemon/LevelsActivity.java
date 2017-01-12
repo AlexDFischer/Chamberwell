@@ -10,6 +10,11 @@ import android.support.v7.widget.GridLayout;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import static me.alexfischer.maxwellsdemon.Static.*;
 
 public class LevelsActivity extends AppCompatActivity
@@ -118,6 +123,22 @@ public class LevelsActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
+
+        // set up advertising
+        MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest;
+        if (Static.TESTING)
+        {
+            adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("EFDF1025DA1BE78404A3297B534892FE")
+                    .build();
+        } else
+        {
+            adRequest = new AdRequest.Builder().build();
+        }
+        mAdView.loadAd(adRequest);
 
         // Back button
         ActionBar actionBar = getSupportActionBar();

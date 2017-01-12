@@ -23,4 +23,9 @@ class Static
      * All of these are proportions of the canvas width
      */
     static final double BALL_RADIUS_PROPORTION = 0.03, WALL_WIDTH_PROPORTION = 0.01;
+
+    /**
+     * For ad purposes
+     */
+    static final boolean TESTING = true;
 }
