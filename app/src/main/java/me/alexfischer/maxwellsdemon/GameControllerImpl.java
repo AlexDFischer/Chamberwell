@@ -120,7 +120,105 @@ class GameControllerImpl implements GameController
     @Override
     public void update()
     {
-        // TODO
+        for (Ball ball : balls)
+        {
+            ball.loc.add(ball.v);
+        }
+
+        // do collision check for each wall individually
+        // LEFT WALL
+        for (Ball ball : balls)
+        {
+            if (ball.loc.x - BALL_RADIUS <= WALL_WIDTH)
+            {
+                double backtrack = WALL_WIDTH - ball.loc.x + BALL_RADIUS;
+                ball.loc.x += 2 * backtrack;
+                ball.v.reflectAcrossYAxis();
+            }
+        }
+        // TOP WALL
+        for (Ball ball : balls)
+        {
+            if (ball.loc.y - BALL_RADIUS <= WALL_WIDTH)
+            {
+                double backtrack = WALL_WIDTH - ball.loc.y + BALL_RADIUS;
+                ball.loc.y += 2 * backtrack;
+                ball.v.reflectAcrossXAxis();
+            }
+        }
+        // RIGHT WALL
+        for (Ball ball : balls)
+        {
+            if (ball.loc.x + BALL_RADIUS >= WIDTH - WALL_WIDTH)
+            {
+                double backTrack = ball.loc.x + BALL_RADIUS - WIDTH + WALL_WIDTH;
+                ball.loc.x -= 2 * backTrack;
+                ball.v.reflectAcrossYAxis();
+            }
+        }
+        // BOTTOM WALL
+        for (Ball ball : balls)
+        {
+            if (ball.loc.y + BALL_RADIUS >= HEIGHT - WALL_WIDTH)
+            {
+                double backTrack = ball.loc.y + BALL_RADIUS - HEIGHT + WALL_WIDTH;
+                ball.loc.y -= 2 * backTrack;
+                ball.v.reflectAcrossXAxis();
+            }
+        }
+
+        // now, check each door individually
+        int farthestLeftCenterCanBe = WALL_WIDTH + DOOR_RADIUS;
+        int farthestRightCenterCanBe = WIDTH - WALL_WIDTH - DOOR_RADIUS;
+        int center = (int)(farthestLeftCenterCanBe + doorPosition * (farthestRightCenterCanBe - farthestLeftCenterCanBe));
+        int leftSurface = center - DOOR_RADIUS, rightSurface = center + DOOR_RADIUS;
+        for (int doorHeight : doorHeights)
+        {
+            // SMALL LEFT SURFACE
+            for (Ball ball : balls)
+            {
+                if  (
+                        ball.loc.x - BALL_RADIUS <= leftSurface &&
+                        ball.loc.y >= doorHeight - WALL_WIDTH / 2 &&
+                        ball.loc.y <= doorHeight + WALL_WIDTH / 2
+                    )
+                {
+                    double backtrack = leftSurface - ball.loc.x + BALL_RADIUS;
+                    ball.loc.x += 2 * backtrack;
+                    ball.v.reflectAcrossYAxis();
+                }
+            }
+            // TOP SURFACE
+            for (Ball ball : balls)
+            {
+                if  (
+                        ball.loc.y + BALL_RADIUS >= doorHeight - WALL_WIDTH / 2 &&
+                        ball.loc.y + BALL_RADIUS <= doorHeight - WALL_WIDTH / 2 &&
+                        ball.v.y > 0 &&
+                        (ball.loc.x <= leftSurface || ball.loc.x >= rightSurface)
+                    )
+                {
+                    double backtrack = ball.loc.y + BALL_RADIUS - doorHeight + WALL_WIDTH / 2;
+                    ball.loc.y -= 2 * backtrack;
+                    ball.v.reflectAcrossXAxis();
+                }
+            }
+            // BOTTOM SURFACE
+            for (Ball ball : balls)
+            {
+                if  (
+                        ball.loc.y - BALL_RADIUS <= doorHeight + WALL_WIDTH / 2 &&
+                        ball.loc.y - BALL_RADIUS >= doorHeight - WALL_WIDTH / 2 &&
+                        ball.v.y < 0 &&
+                        (ball.loc.x <= leftSurface || ball.loc.x >= rightSurface)
+                    )
+                {
+                    double backtrack = doorHeight + WALL_WIDTH / 2 - ball.loc.y + BALL_RADIUS;
+                    ball.loc.y += 2 * backtrack;
+                    ball.v.reflectAcrossXAxis();
+                }
+            }
+        }
     }
 
     @Override
@@ -182,7 +280,6 @@ class GameControllerImpl implements GameController
             {
                 canvas.drawRect(WALL_WIDTH, doorHeight - WALL_WIDTH / 2, center - DOOR_RADIUS, doorHeight + WALL_WIDTH / 2, wallPaint);
                 canvas.drawRect(center + DOOR_RADIUS, doorHeight - WALL_WIDTH / 2, WIDTH - WALL_WIDTH, doorHeight + WALL_WIDTH / 2, wallPaint);
-
             }
 
             // paint the balls
@@ -196,6 +293,7 @@ class GameControllerImpl implements GameController
             WIDTH = canvas.getWidth();
             HEIGHT = canvas.getHeight();
             BALL_RADIUS = (int)(BALL_RADIUS_PROPORTION * WIDTH);
+            double ballSpeed = Static.BALL_SPEED_PROPORTION * WIDTH;
             WALL_WIDTH = (int)(WALL_WIDTH_PROPORTION * WIDTH);
             DOOR_RADIUS = (int)(doorWidth * WIDTH / 2);
             dimensionsSetUp = true;
@@ -218,15 +316,9 @@ class GameControllerImpl implements GameController
                     ball.loc.x = WALL_WIDTH + BALL_RADIUS + r.nextInt(xRange);
                     ball.loc.y = WALL_WIDTH + BALL_RADIUS + r.nextInt(yRange);
                 } while (!isValidStart(ball));
-            }
-            // find topmost ball
-            Ball topmostBall = balls[0];
-            for (Ball ball : balls)
-            {
-                if (ball.loc.y < topmostBall.loc.y)
-                {
-                    topmostBall = ball;
-                }
+                Vector v = new Vector(0, ballSpeed);
+                v.setArgument(r.nextDouble() * 2 * Math.PI);
+                ball.v = v;
             }
             paint(canvas);
         }
@@ -255,11 +347,7 @@ class GameControllerImpl implements GameController
         }
         // now make sure it's in a different colored chamber
         int chamberNum = chamberColors.length * ((int)ball.loc.y - WALL_WIDTH) / (HEIGHT - 2 * WALL_WIDTH);
-        if (chamberColors[chamberNum] == ball.getColor())
-        {
-            return false;
-        }
-        return true;
+        return chamberColors[chamberNum] != ball.getColor();
     }
 
     private void paintBall(Canvas canvas, Ball ball)

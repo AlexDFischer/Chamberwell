@@ -18,7 +18,7 @@ public class GameView extends View implements SensorEventListener
     private SensorManager sensorManager = (SensorManager)(getContext().getSystemService(getContext().SENSOR_SERVICE));
     Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     private GameController gc;
-    private Timer timer;
+    private Timer timer = new Timer();
     private TimerTask task = new TimerTask()
     {
         @Override
@@ -53,7 +53,6 @@ public class GameView extends View implements SensorEventListener
 
     private void init()
     {
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
         Log.d("adf", "dimensions of GameView are " + getWidth() + " x " + getHeight());
     }
 
@@ -95,7 +94,7 @@ public class GameView extends View implements SensorEventListener
         this.gc = controller;
 
         timer = new Timer();
-        timer.schedule(task, 0, Static.UPDATE_DELAY);
+
     }
 
     public void start()
@@ -104,7 +103,9 @@ public class GameView extends View implements SensorEventListener
         {
             throw new IllegalStateException("Haven't set game controller yet, so can't start");
         }
+        timer.schedule(task, 0, Static.UPDATE_DELAY);
         isRunning = true;
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void stop()
@@ -113,9 +114,9 @@ public class GameView extends View implements SensorEventListener
         {
             throw new IllegalStateException("Haven't set game controller yet, so can't stop");
         }
+        timer.cancel();
         isRunning = false;
         sensorManager.unregisterListener(this);
-        timer.cancel();
     }
 
     public void pause()
@@ -124,6 +125,8 @@ public class GameView extends View implements SensorEventListener
         {
             throw new IllegalStateException("Haven't set game controller yet, so can't pause");
         }
+        timer.cancel();
         isRunning = false;
+        sensorManager.unregisterListener(this);
     }
 }

@@ -14,10 +14,9 @@ import java.util.TimerTask;
  */
 public class MainBackgroundView extends View
 {
-    private Paint myPaint = new Paint();
 
     private GameController customGC = new GameControllerImpl(3, 3, 3, "red;blue;", 0.333f);
-    private Timer timer;
+    private Timer timer = new Timer();
     private TimerTask task = new TimerTask()
     {
         @Override
@@ -64,11 +63,13 @@ public class MainBackgroundView extends View
 
     public void startAnimation()
     {
+        this.timer.schedule(task, 0, Static.UPDATE_DELAY);
         this.isRunning = true;
     }
 
     public void pauseAnimation()
     {
+        this.timer.cancel();
         this.isRunning = false;
     }
 }
