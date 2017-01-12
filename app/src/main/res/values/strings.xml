@@ -10,7 +10,7 @@
     <string name="levels_activity_title">Levels</string>
 
     <string name="settings_activity_title">Settings</string>
-    <string name="settings_sensitivity">Sensitivity:</string>
+    <string name="settings_sensitivity_text">Sensitivity: *%</string>
     <string name="settings_lock_all_button">Lock All Levels</string>
 
     <string name="about_activity_title">About</string>

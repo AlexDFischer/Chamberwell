@@ -24,15 +24,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="@string/settings_sensitivity"
+                android:text="@string/settings_sensitivity_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:id="@+id/sensitivityLabel"/>
 
-            <NumberPicker
+            <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sensitivityPicker"/>
+                android:max="100"
+                android:id="@+id/sensitivityBar"/>
 
             <Button
                 android:text="@string/settings_lock_all_button"

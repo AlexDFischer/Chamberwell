@@ -3,11 +3,11 @@ package me.alexfischer.maxwellsdemon;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.NumberPicker;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity
 {
@@ -28,12 +28,10 @@ public class SettingsActivity extends AppCompatActivity
 
         setTitle(getString(R.string.settings_activity_title));
 
-        NumberPicker sensitivityPicker = (NumberPicker)(findViewById(R.id.sensitivityPicker));
-        sensitivityPicker.setMinValue(1);
-        sensitivityPicker.setMaxValue(100);
-        sensitivityPicker.setValue(Static.pref.getInt(Static.sensitivityString, 50));
-        Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
-        sensitivityPicker.setOnValueChangedListener(new SensitivityListener());
+        SeekBar seekBar = (SeekBar)(findViewById(R.id.sensitivityBar));
+        seekBar.setMax(100);
+        seekBar.setOnSeekBarChangeListener(new SensitivityListener());
+        seekBar.setProgress(Static.pref.getInt(Static.sensitivityString, 50));
     }
 
     @Override
@@ -57,15 +55,18 @@ public class SettingsActivity extends AppCompatActivity
         Static.prefEditor.apply();
     }
 
-    private class SensitivityListener implements NumberPicker.OnValueChangeListener
+    private class SensitivityListener implements SeekBar.OnSeekBarChangeListener
     {
         @Override
-        public void onValueChange(NumberPicker sensitivityPicker, int oldVal, int newVal)
+        public void onProgressChanged(SeekBar seekBar, int sensitivity, boolean bool)
         {
-            Static.prefEditor.putInt(Static.sensitivityString, sensitivityPicker.getValue());
+            Static.prefEditor.putInt(Static.sensitivityString, sensitivity);
             Static.prefEditor.apply();
-            Static.setSensitivity(sensitivityPicker.getValue());
-            Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
+            Static.setSensitivity(sensitivity);
+            ((TextView)findViewById(R.id.sensitivityLabel)).setText(getString(R.string.settings_sensitivity_text).replace("*", Integer.toString(sensitivity)));
         }
+
+        @Override public void onStartTrackingTouch(SeekBar seekBar) { }
+        @Override public void onStopTrackingTouch(SeekBar seekBar) { }
     }
 }

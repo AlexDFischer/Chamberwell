@@ -14,6 +14,11 @@ public interface GameController
     double getDoorPosition();
 
     /**
+     * Makes the door width 0.
+     */
+    void closeDoor();
+
+    /**
      * Sets the door position. 0 is all the way to the left, and 1 to the right.
      * @param pos the door position
      */

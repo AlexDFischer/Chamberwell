@@ -106,6 +106,10 @@ class GameControllerImpl implements GameController
     @Override
     public boolean isVictorious()
     {
+        if (!dimensionsSetUp)
+        {
+            return false;
+        }
         for (Ball ball : balls)
         {
             int chamberNum = chamberColors.length * ((int)ball.loc.y - WALL_WIDTH) / (HEIGHT - 2 * WALL_WIDTH);
@@ -322,7 +326,6 @@ class GameControllerImpl implements GameController
             }
             paint(canvas);
         }
-        canvas.drawText("doorPosition is " + doorPosition, 0.0f, 100.0f, wallPaint);
     }
 
     /**
@@ -364,5 +367,11 @@ class GameControllerImpl implements GameController
                 canvas.drawCircle((float)(ball.loc.x), (float)(ball.loc.y), BALL_RADIUS, blueFG);
                 break;
         }
+    }
+
+    @Override
+    public void closeDoor()
+    {
+        this.DOOR_RADIUS = 0;
     }
 }
