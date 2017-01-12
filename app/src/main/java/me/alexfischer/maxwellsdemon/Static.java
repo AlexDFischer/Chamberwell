@@ -1,6 +1,8 @@
 package me.alexfischer.maxwellsdemon;
 
 
+import android.content.SharedPreferences;
+
 class Static
 {
     static final int CURRENT_LEVELS_VERSION = 0;
@@ -15,9 +17,9 @@ class Static
     static final int UPDATE_DELAY = 50;
 
     /**
-     * The amount of tilt of the phone that means the door should be all the way to the left/right. Currently 45 degrees
+     * The amount of tilt of the phone that means the door should be all the way to the left/right.
      */
-    static final double MAX_TILT = Math.PI / 4;
+    static double MAX_TILT;
 
     /**
      * All of these are proportions of the canvas width
@@ -28,4 +30,18 @@ class Static
      * For ad purposes
      */
     static final boolean TESTING = true;
+
+    static void setSensitivity(int sensitivity)
+    {
+        if (sensitivity < 1 || sensitivity > 100)
+        {
+            throw new IllegalArgumentException("Sensitivity must be between 1 and 100 inclusive: " + sensitivity);
+        }
+        MAX_TILT = Math.PI / 2 * (1.0 - 0.9 * (sensitivity / 100.0));
+    }
+
+    static final String sensitivityString = "sensitivity";
+
+    static SharedPreferences pref;
+    static SharedPreferences.Editor prefEditor;
 }

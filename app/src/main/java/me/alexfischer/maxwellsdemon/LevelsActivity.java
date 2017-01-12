@@ -1,8 +1,6 @@
 package me.alexfischer.maxwellsdemon;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,29 +34,14 @@ public class LevelsActivity extends AppCompatActivity
      */
     private void lockAllLevels()
     {
-        SharedPreferences.Editor pref = getPreferences(Context.MODE_PRIVATE).edit();
-        pref.putInt("levelsVersion", CURRENT_LEVELS_VERSION);
+        Static.prefEditor.putInt("levelsVersion", CURRENT_LEVELS_VERSION);
         // true = unlocked, false = locked
-        pref.putBoolean("level1", true);
+        Static.prefEditor.putBoolean("level1", true);
         for (int level = 2; level <= NUM_LEVELS; level++)
         {
             lockLevel(level);
         }
-        pref.apply();
-    }
-
-    /**
-     * Tells whether the given level is locked or unlocked
-     * @param level the level to check
-     * @return true if unlocked, false if locked
-     */
-    private boolean isUnlocked(int level)
-    {
-        if (level < 1 || level > NUM_LEVELS)
-        {
-            throw new IllegalArgumentException("No such level: " + level);
-        }
-        return levelStatuses[level];
+        Static.prefEditor.apply();
     }
 
     /**
@@ -71,9 +54,8 @@ public class LevelsActivity extends AppCompatActivity
         {
             throw new IllegalArgumentException("Can't lock level " + level);
         }
-        SharedPreferences.Editor pref = getPreferences(Context.MODE_PRIVATE).edit();
-        pref.putBoolean("level" + level, false);
-        pref.apply();
+        Static.prefEditor.putBoolean("level" + level, false);
+        Static.prefEditor.apply();
         levelStatuses[level] = false;
         StartLevelView startLevelView = (StartLevelView)((GridLayout)(this.findViewById(R.id.levelsGrid))).getChildAt(level - 1);
         startLevelView.setUnlocked(false);
@@ -90,9 +72,8 @@ public class LevelsActivity extends AppCompatActivity
         {
             throw new IllegalArgumentException("Can't lock level " + level);
         }
-        SharedPreferences.Editor pref = getPreferences(Context.MODE_PRIVATE).edit();
-        pref.putBoolean("level" + level, true);
-        pref.apply();
+        Static.prefEditor.putBoolean("level" + level, true);
+        Static.prefEditor.apply();
         levelStatuses[level] = true;
         StartLevelView startLevelView = (StartLevelView)((GridLayout)(this.findViewById(R.id.levelsGrid))).getChildAt(level - 1);
         startLevelView.setUnlocked(true);
@@ -156,7 +137,7 @@ public class LevelsActivity extends AppCompatActivity
             actionBar.setDisplayShowHomeEnabled(true);
         }
 
-        setTitle("Levels");
+        setTitle(getString(R.string.levels_activity_title));
 
         // get number of levels
         this.NUM_LEVELS = ((GridLayout)findViewById(R.id.levelsGrid)).getChildCount();
@@ -164,15 +145,14 @@ public class LevelsActivity extends AppCompatActivity
         Log.d("adf", "There are " + NUM_LEVELS + " levels.");
 
         // manage level (un)locking
-
-        SharedPreferences pref = getPreferences(Context.MODE_PRIVATE);
-        if (pref.contains("levelsVersion")) // app should have level statuses stored
+        Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
+        if (Static.pref.contains("levelsVersion")) // app should have level statuses stored
         {
-            if (pref.getInt("levelsVersion", 0) == CURRENT_LEVELS_VERSION)
+            if (Static.pref.getInt("levelsVersion", 0) == CURRENT_LEVELS_VERSION)
             {
                 for (int level = 1; level <= NUM_LEVELS; level++)
                 {
-                    if (pref.getBoolean("level" + level, false))
+                    if (Static.pref.getBoolean("level" + level, false))
                     {
                         unlockLevel(level);
                     } else
@@ -221,11 +201,5 @@ public class LevelsActivity extends AppCompatActivity
             gameIntent.putExtra("doorWidth", mView.doorWidth);
             startActivityForResult(gameIntent, Static.LEVEL_STATUS_REQUEST);
         }
-    }
-
-    public void onClickLockLevelsButton(View view)
-    {
-        lockAllLevels();
-        unlockLevel(1);
     }
 }
