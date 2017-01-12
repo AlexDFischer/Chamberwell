@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "804888756900",
+    "firebase_url": "https://maxwellsdemon-e820c.firebaseio.com",
+    "project_id": "maxwellsdemon-e820c",
+    "storage_bucket": "maxwellsdemon-e820c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804888756900:android:6ce7d6a5533581e5",
+        "android_client_info": {
+          "package_name": "me.alexfischer.maxwellsdemon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "804888756900-162urtbl6qe5rjcn2i5ektm00b91912s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.alexfischer.maxwellsdemon",
+            "certificate_hash": "9BE43251610BE2D8C7D6801B46AFCE0D658D2BDE"
+          }
+        },
+        {
+          "client_id": "804888756900-1m89732sdr2don0qc7pf0jfjfsi39ce2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwx-iC1JrXhtQyL5AguBsPHuT26YT3jCU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "804888756900-1m89732sdr2don0qc7pf0jfjfsi39ce2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
