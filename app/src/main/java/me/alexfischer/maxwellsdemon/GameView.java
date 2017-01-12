@@ -15,22 +15,10 @@ import java.util.TimerTask;
 
 public class GameView extends View implements SensorEventListener
 {
-    private SensorManager sensorManager = (SensorManager)(getContext().getSystemService(getContext().SENSOR_SERVICE));
+    private SensorManager sensorManager = (SensorManager)(getContext().getSystemService(Context.SENSOR_SERVICE));
     Sensor sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     private GameController gc;
-    private Timer timer = new Timer();
-    private TimerTask task = new TimerTask()
-    {
-        @Override
-        public void run()
-        {
-            if (isRunning)
-            {
-                GameView.this.gc.update();
-                GameView.this.postInvalidate();
-            }
-        }
-    };
+    private Timer timer;
     private volatile boolean isRunning = false;
 
     public GameView(Context context)
@@ -103,6 +91,19 @@ public class GameView extends View implements SensorEventListener
         {
             throw new IllegalStateException("Haven't set game controller yet, so can't start");
         }
+        timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                if (isRunning)
+                {
+                    GameView.this.gc.update();
+                    GameView.this.postInvalidate();
+                }
+            }
+        };
         timer.schedule(task, 0, Static.UPDATE_DELAY);
         isRunning = true;
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);

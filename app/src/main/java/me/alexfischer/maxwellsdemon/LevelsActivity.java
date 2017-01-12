@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayout;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -119,6 +120,11 @@ public class LevelsActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -142,9 +148,12 @@ public class LevelsActivity extends AppCompatActivity
 
         // Back button
         ActionBar actionBar = getSupportActionBar();
+        Log.d("adf", "is action bar null? " + ((actionBar == null) ? "yes" : "no"));
         if (actionBar != null)
         {
-            actionBar.setDefaultDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
         }
 
         setTitle("Levels");

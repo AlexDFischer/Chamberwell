@@ -193,7 +193,7 @@ class GameControllerImpl implements GameController
             {
                 if  (
                         ball.loc.y + BALL_RADIUS >= doorHeight - WALL_WIDTH / 2 &&
-                        ball.loc.y + BALL_RADIUS <= doorHeight - WALL_WIDTH / 2 &&
+                        ball.loc.y + BALL_RADIUS <= doorHeight + WALL_WIDTH / 2 &&
                         ball.v.y > 0 &&
                         (ball.loc.x <= leftSurface || ball.loc.x >= rightSurface)
                     )

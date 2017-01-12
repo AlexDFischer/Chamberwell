@@ -2,7 +2,6 @@ package me.alexfischer.maxwellsdemon;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -16,19 +15,7 @@ public class MainBackgroundView extends View
 {
 
     private GameController customGC = new GameControllerImpl(3, 3, 3, "red;blue;", 0.333f);
-    private Timer timer = new Timer();
-    private TimerTask task = new TimerTask()
-    {
-        @Override
-        public void run()
-        {
-            if (isRunning)
-            {
-                MainBackgroundView.this.customGC.update();
-                MainBackgroundView.this.postInvalidate();
-            }
-        }
-    };
+    private Timer timer;
     private volatile boolean isRunning = false;
 
     public MainBackgroundView(Context context)
@@ -63,6 +50,19 @@ public class MainBackgroundView extends View
 
     public void startAnimation()
     {
+        this.timer = new Timer();
+        TimerTask task = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                if (isRunning)
+                {
+                    MainBackgroundView.this.customGC.update();
+                    MainBackgroundView.this.postInvalidate();
+                }
+            }
+        };
         this.timer.schedule(task, 0, Static.UPDATE_DELAY);
         this.isRunning = true;
     }

@@ -18,13 +18,6 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-8119969654620410/1497889280"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickLockLevelsButton"
-        android:text="@string/lock_levels_button"/>
-
     <android.support.v7.widget.GridLayout
         android:id="@+id/levelsGrid"
         android:layout_width="match_parent"

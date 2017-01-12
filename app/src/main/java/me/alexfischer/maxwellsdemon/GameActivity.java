@@ -1,8 +1,6 @@
 package me.alexfischer.maxwellsdemon;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -79,7 +77,20 @@ public class GameActivity extends AppCompatActivity
                 intent.getStringExtra("chambers"),
                 intent.getFloatExtra("doorWidth", 0.5f)
                 ));
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
         gameView.start();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        gameView.pause();
     }
 
     public void onSuccess(View view)
