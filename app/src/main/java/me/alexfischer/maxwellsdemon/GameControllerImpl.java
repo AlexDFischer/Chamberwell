@@ -48,8 +48,8 @@ class GameControllerImpl implements GameController
         wallPaint.setTextSize(50.0f);
         redFG.setARGB(255, 255, 0, 0);
         redBG.setARGB(255, 255, 192, 192);
-        purpleFG.setARGB(255, 192, 0, 192);
-        purpleBG.setARGB(255, 192, 128, 192);
+        purpleFG.setARGB(255, 170, 0, 192);
+        purpleBG.setARGB(255, 224, 170, 255);
         blueFG.setARGB(255, 0, 0, 255);
         blueBG.setARGB(255, 192, 192, 255);
 

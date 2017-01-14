@@ -1,6 +1,6 @@
 package me.alexfischer.maxwellsdemon;
 
-public enum BallColor
+enum BallColor
 {
     RED, BLUE, PURPLE
 }

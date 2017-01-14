@@ -2,7 +2,7 @@ package me.alexfischer.maxwellsdemon;
 
 import android.graphics.Canvas;
 
-public interface GameController
+interface GameController
 {
     boolean isVictorious();
 

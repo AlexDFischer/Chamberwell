@@ -1,19 +1,19 @@
 package me.alexfischer.maxwellsdemon;
 
-public class Ball
+class Ball
 {
     private final BallColor color;
 
-    public Vector loc, v;
+    Vector loc, v;
 
-    public Ball(BallColor color, Vector loc, Vector v)
+    private Ball(BallColor color, Vector loc, Vector v)
     {
         this.color = color;
         this.loc = loc;
         this.v = v;
     }
 
-    public Ball(BallColor color)
+    Ball(BallColor color)
     {
         this(color, new Vector(), new Vector());
     }

@@ -23,15 +23,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <CheckBox
+                android:text="@string/settings_back_pause_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_item_vertical_margin"
+                android:layout_marginBottom="@dimen/settings_item_vertical_margin"
+                android:id="@+id/backPauseCheckBox"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
+
             <TextView
                 android:text="@string/settings_sensitivity_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/sensitivityLabel"/>
+                android:layout_marginTop="@dimen/settings_item_vertical_margin"
+                android:id="@+id/sensitivityLabel"
+                android:textAppearance="@style/TextAppearance.AppCompat"/>
 
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/settings_item_vertical_margin"
                 android:max="100"
                 android:id="@+id/sensitivityBar"/>
 
@@ -39,6 +51,8 @@
                 android:text="@string/settings_lock_all_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/settings_item_vertical_margin"
+                android:layout_marginBottom="@dimen/settings_item_vertical_margin"
                 android:onClick="onLockAllLevelsClick"/>
         </LinearLayout>
     </ScrollView>

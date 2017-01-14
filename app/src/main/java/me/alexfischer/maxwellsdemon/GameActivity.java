@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import java.util.Timer;
@@ -18,6 +19,7 @@ import java.util.TimerTask;
 public class GameActivity extends AppCompatActivity implements SensorEventListener
 {
     private GameView gameView;
+    private PausedGameView pausedGameView;
     private int level;
     private SensorManager sensorManager;
     Sensor sensor;
@@ -30,6 +32,8 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        this.pausedGameView = new PausedGameView(this);
 
         sensorManager = (SensorManager)(getSystemService(Context.SENSOR_SERVICE));
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -47,25 +51,34 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
                     );
 
         setTitle(getString(R.string.game_activity_title).replace("*", Integer.toString(level)));
-        FrameLayout gameFrame = (FrameLayout)(findViewById(R.id.gameFrameLayout));
-
-        gameView = new GameView(this);
-        gameView.setGameController(gc);
-        gameFrame.addView(gameView);
+        this.gameView = new GameView(this);
+        this.gameView.setGameController(gc);
+        this.startGame();
     }
 
     @Override
-    public void onStart()
+    public void onBackPressed()
     {
-        super.onStart();
-        this.start();
+        if (Static.backButtonPauses)
+        {
+            if (isRunning)
+            {
+                pauseGame();
+            } else
+            {
+                startGame();
+            }
+        }
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
-        this.pause();
+        if (isRunning)
+        {
+            this.onPauseButtonClick(findViewById(R.id.pauseButton));
+        }
     }
 
     @Override
@@ -89,12 +102,15 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    public void start()
+    public void startGame()
     {
         if (gc == null)
         {
             throw new IllegalStateException("Haven't set game controller yet, so can't start");
         }
+        FrameLayout gameFrame = (FrameLayout)(findViewById(R.id.gameFrameLayout));
+        gameFrame.removeAllViews();
+        gameFrame.addView(gameView);
         timer = new Timer();
         TimerTask task = new TimerTask()
         {
@@ -119,33 +135,35 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         timer.schedule(task, 0, Static.UPDATE_DELAY);
         isRunning = true;
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
+        Button button = (Button)findViewById(R.id.pauseButton);
+        button.setText(getString(R.string.pause_button_text));
     }
 
     public void stop()
     {
-        if (gc == null)
+        if (!isRunning)
         {
-            throw new IllegalStateException("Haven't set game controller yet, so can't stop");
+            throw new IllegalStateException("Can't stop while not running");
         }
         timer.cancel();
         isRunning = false;
         sensorManager.unregisterListener(this);
     }
 
-    public void pause()
+    private void pauseGame()
     {
-        if (gc == null)
+        if (!isRunning)
         {
-            throw new IllegalStateException("Haven't set game controller yet, so can't pause");
+            throw new IllegalStateException("Can only pauseGame when game is running");
         }
         timer.cancel();
         isRunning = false;
         sensorManager.unregisterListener(this);
-    }
-
-    public void onSuccessButtonClick(View view)
-    {
-        success();
+        FrameLayout gameFrame = (FrameLayout)(findViewById(R.id.gameFrameLayout));
+        gameFrame.removeAllViews();
+        gameFrame.addView(pausedGameView);
+        Button button = (Button)(findViewById(R.id.pauseButton));
+        button.setText(getString(R.string.unpause_button_text));
     }
 
     public void success()
@@ -155,5 +173,25 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         setResult(Static.LEVEL_STATUS_SUCCESS, data);
         this.stop();
         finish();
+    }
+
+    public void onPauseButtonClick(View view)
+    {
+        if (isRunning)
+        {
+            pauseGame();
+        } else
+        {
+            this.startGame();
+        }
+    }
+
+    public void onQuitButtonClick(View view)
+    {
+        if (isRunning)
+        {
+            this.stop();
+        }
+        this.finish();
     }
 }

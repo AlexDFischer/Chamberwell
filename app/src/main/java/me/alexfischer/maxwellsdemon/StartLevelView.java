@@ -10,7 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class StartLevelView extends View
+class StartLevelView extends View
 {
     private boolean unlocked = false;
     public int level, numRedBalls, numPurpleBalls, numBlueBalls;
@@ -100,10 +100,5 @@ public class StartLevelView extends View
     public void setUnlocked(boolean unlocked)
     {
         this.unlocked = unlocked;
-    }
-
-    public void setLevel(int level)
-    {
-        this.level = level;
     }
 }

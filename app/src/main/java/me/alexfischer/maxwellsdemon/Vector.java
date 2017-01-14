@@ -1,49 +1,39 @@
 package me.alexfischer.maxwellsdemon;
 
-public class Vector
+class Vector
 {
-    public double x, y;
+    double x, y;
 
-    public Vector()
+    Vector()
     {
         this(0, 0);
     }
 
-    public Vector(double x, double y)
+    Vector(double x, double y)
     {
         this.x = x;
         this.y = y;
     }
 
-    public void add(Vector v)
+    void add(Vector v)
     {
         this.x += v.x;
         this.y += v.y;
     }
 
-    public double argument()
+    void setArgument(double argument)
     {
-        return Math.atan2(y, x);
-    }
-
-    public double norm()
-    {
-        return Math.sqrt(x*x+y*y);
-    }
-
-    public void setArgument(double argument)
-    {
-        double norm = norm();
+        double norm = Math.sqrt(x*x+y*y);
         this.x = norm * Math.cos(argument);
         this.y = norm * Math.sin(argument);
     }
 
-    public void reflectAcrossXAxis()
+    void reflectAcrossXAxis()
     {
         this.y *= -1;
     }
 
-    public void reflectAcrossYAxis()
+    void reflectAcrossYAxis()
     {
         this.x *= -1;
     }

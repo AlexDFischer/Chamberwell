@@ -9,7 +9,6 @@ class Static
 
     static final int LEVEL_STATUS_REQUEST = 0;
     static final int LEVEL_STATUS_SUCCESS = 1;
-    static final int LEVEL_STATUS_FAILURE = 2;
 
     /**
      * Amount of time, in milliseconds, to wait in between updating the game
@@ -31,6 +30,8 @@ class Static
      */
     static final boolean TESTING = true;
 
+    static boolean backButtonPauses = true;
+
     static void setSensitivity(int sensitivity)
     {
         if (sensitivity < 1 || sensitivity > 100)
@@ -40,7 +41,7 @@ class Static
         MAX_TILT = Math.PI / 2 * (1.0 - 0.9 * (sensitivity / 100.0));
     }
 
-    static final String sensitivityString = "sensitivity";
+    static final String sensitivityString = "sensitivity", backPauseString = "backButtonPauses";
 
     static SharedPreferences pref;
     static SharedPreferences.Editor prefEditor;

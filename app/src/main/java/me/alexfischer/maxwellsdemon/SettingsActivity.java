@@ -3,9 +3,12 @@ package me.alexfischer.maxwellsdemon;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -32,6 +35,11 @@ public class SettingsActivity extends AppCompatActivity
         seekBar.setMax(100);
         seekBar.setOnSeekBarChangeListener(new SensitivityListener());
         seekBar.setProgress(Static.pref.getInt(Static.sensitivityString, 50));
+
+        CheckBox checkBox = (CheckBox)(findViewById(R.id.backPauseCheckBox));
+        checkBox.setOnCheckedChangeListener(new BackPauseListener());
+        checkBox.setChecked(Static.pref.getBoolean(Static.backPauseString, true));
+        checkBox.invalidate();
     }
 
     @Override
@@ -53,6 +61,19 @@ public class SettingsActivity extends AppCompatActivity
             Static.prefEditor.putBoolean("level" + level, false);
         }
         Static.prefEditor.apply();
+    }
+
+    private class BackPauseListener implements CompoundButton.OnCheckedChangeListener
+    {
+        @Override
+        public void onCheckedChanged(CompoundButton button, boolean value)
+        {
+            CheckBox checkBox = (CheckBox)(findViewById(R.id.backPauseCheckBox));
+            Static.prefEditor.putBoolean(Static.backPauseString, checkBox.isChecked());
+            Static.prefEditor.apply();
+            Static.backButtonPauses = checkBox.isChecked();
+            Log.d("adf", "checkbox is checked now? " + checkBox.isChecked());
+        }
     }
 
     private class SensitivityListener implements SeekBar.OnSeekBarChangeListener

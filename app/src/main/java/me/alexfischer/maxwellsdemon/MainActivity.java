@@ -2,10 +2,8 @@ package me.alexfischer.maxwellsdemon;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.ads.AdRequest;
@@ -40,13 +38,14 @@ public class MainActivity extends AppCompatActivity
         // shared preferences setup
         Static.pref = getPreferences(Context.MODE_PRIVATE);
         Static.prefEditor = Static.pref.edit();
+        Static.prefEditor.apply(); // we don't actually need to do this, just so we don't get a warning for calling edit() without commit() or apply()
 
         // sensitivity setup
         int sensitivity = Static.pref.getInt(Static.sensitivityString, 50);
-        Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
-        Log.d("adf", "sensitivity is " + sensitivity);
         Static.setSensitivity(sensitivity);
-        Log.d("adf", "finished with MainActivity onCreate");
+
+        // back button pausing.unpausing setup
+        Static.backButtonPauses = Static.pref.getBoolean(Static.backPauseString, true);
     }
 
     @Override
