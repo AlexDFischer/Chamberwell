@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -32,6 +33,9 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        // keeps the screen from sleeping when playing the game
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         this.pausedGameView = new PausedGameView(this);
 

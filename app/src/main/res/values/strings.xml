@@ -22,5 +22,7 @@
     <string name="about_text">Copyright © 2017 Alex Fischer, All Rights Reserved. See alexfischer.me for more information.</string>
 
     <string name="admob_app_id">ca-app-pub-8119969654620410~1595620887</string>
+    <string name="test_banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
     <string name="main_banner_ad_unit_id">ca-app-pub-8119969654620410/3072354089</string>
+    <string name="levels_banner_ad_unit_id">ca-app-pub-8119969654620410/1497889280</string>
 </resources>

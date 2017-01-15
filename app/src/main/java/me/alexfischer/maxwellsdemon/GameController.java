@@ -9,11 +9,6 @@ interface GameController
     void update();
 
     /**
-     * Returns the door position. 0 is all the way to the left, and 1 to the right.
-     */
-    double getDoorPosition();
-
-    /**
      * Makes the door width 0.
      */
     void closeDoor();

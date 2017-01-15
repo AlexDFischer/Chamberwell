@@ -8,9 +8,6 @@ import android.view.View;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * TODO: document your custom view class.
- */
 public class MainBackgroundView extends View
 {
 

@@ -226,12 +226,6 @@ class GameControllerImpl implements GameController
     }
 
     @Override
-    public double getDoorPosition()
-    {
-        return this.doorPosition;
-    }
-
-    @Override
     public void setDoorPosition(double doorPosition)
     {
         if (0 <= doorPosition && doorPosition <= 1)

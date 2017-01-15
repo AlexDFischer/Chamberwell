@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayout;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,14 +87,10 @@ public class LevelsActivity extends AppCompatActivity
             int levelNum = data.getIntExtra("level", -1);
             if (resultCode == Static.LEVEL_STATUS_SUCCESS) // succeeded at the level
             {
-                Log.d("adf", "succeeded at level " + levelNum);
                 if (levelNum < NUM_LEVELS)
                 {
                     unlockLevel(levelNum + 1);
                 }
-            } else // failed at the level
-            {
-                Log.d("adf", "failed at level " + levelNum);
             }
         }
     }
@@ -115,21 +110,11 @@ public class LevelsActivity extends AppCompatActivity
         MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest;
-        if (Static.TESTING)
-        {
-            adRequest = new AdRequest.Builder()
-                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                    .addTestDevice("EFDF1025DA1BE78404A3297B534892FE")
-                    .build();
-        } else
-        {
-            adRequest = new AdRequest.Builder().build();
-        }
+        adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         // Back button
         ActionBar actionBar = getSupportActionBar();
-        Log.d("adf", "is action bar null? " + ((actionBar == null) ? "yes" : "no"));
         if (actionBar != null)
         {
             actionBar.setHomeButtonEnabled(true);
@@ -142,10 +127,8 @@ public class LevelsActivity extends AppCompatActivity
         // get number of levels
         this.NUM_LEVELS = ((GridLayout)findViewById(R.id.levelsGrid)).getChildCount();
         levelStatuses = new boolean[NUM_LEVELS + 1];
-        Log.d("adf", "There are " + NUM_LEVELS + " levels.");
 
         // manage level (un)locking
-        Log.d("adf", "does shared preferences have sensitivity? " + Static.pref.contains(Static.sensitivityString));
         if (Static.pref.contains("levelsVersion")) // app should have level statuses stored
         {
             if (Static.pref.getInt("levelsVersion", 0) == CURRENT_LEVELS_VERSION)
@@ -165,14 +148,11 @@ public class LevelsActivity extends AppCompatActivity
                 lockAllLevels();
                 unlockLevel(1);
             }
-            Log.d("adf", "locked levels not for first time");
         } else // no level statuses stored
         {
             lockAllLevels();
             unlockLevel(1);
-            Log.d("adf", "locked levels for first time");
         }
-        Log.d("adf", "done with oncreate");
     }
 
     @Override
@@ -191,7 +171,6 @@ public class LevelsActivity extends AppCompatActivity
         StartLevelView mView = (StartLevelView)view;
         if (mView.isUnlocked())
         {
-            Log.d("adf", "playing level " + mView.getLevel());
             Intent gameIntent = new Intent(this, GameActivity.class);
             gameIntent.putExtra("level", mView.getLevel());
             gameIntent.putExtra("numRedBalls", mView.numRedBalls);

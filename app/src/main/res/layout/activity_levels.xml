@@ -13,10 +13,10 @@
     <com.google.android.gms.ads.AdView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/adView"
         ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-8119969654620410/1497889280"/>
+        ads:adUnitId="@string/levels_banner_ad_unit_id"/>
 
     <android.support.v7.widget.GridLayout
         android:id="@+id/levelsGrid"

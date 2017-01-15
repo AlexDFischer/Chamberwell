@@ -13,7 +13,7 @@ class Static
     /**
      * Amount of time, in milliseconds, to wait in between updating the game
      */
-    static final int UPDATE_DELAY = 50;
+    static final int UPDATE_DELAY = 33;
 
     /**
      * The amount of tilt of the phone that means the door should be all the way to the left/right.
@@ -24,11 +24,6 @@ class Static
      * All of these are proportions of the canvas width
      */
     static final double BALL_RADIUS_PROPORTION = 0.03, WALL_WIDTH_PROPORTION = 0.02, BALL_SPEED_PROPORTION = 0.008;
-
-    /**
-     * For ad purposes
-     */
-    static final boolean TESTING = true;
 
     static boolean backButtonPauses = true;
 

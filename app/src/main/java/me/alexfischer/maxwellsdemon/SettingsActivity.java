@@ -3,7 +3,6 @@ package me.alexfischer.maxwellsdemon;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +71,6 @@ public class SettingsActivity extends AppCompatActivity
             Static.prefEditor.putBoolean(Static.backPauseString, checkBox.isChecked());
             Static.prefEditor.apply();
             Static.backButtonPauses = checkBox.isChecked();
-            Log.d("adf", "checkbox is checked now? " + checkBox.isChecked());
         }
     }
 
