@@ -120,7 +120,7 @@
             custom:numPurpleBalls="0"
             custom:numBlueBalls="5"
             custom:chambers="red;purple;blue"
-            custom:doorWidth="0.5"/>
+            custom:doorWidth="0.333"/>
 
         <me.alexfischer.maxwellsdemon.StartLevelView
             android:id="@+id/level7"
@@ -152,7 +152,7 @@
             custom:numPurpleBalls="0"
             custom:numBlueBalls="5"
             custom:chambers="red;blue;blue;red"
-            custom:doorWidth="0.5"/>
+            custom:doorWidth="0.333"/>
 
         <me.alexfischer.maxwellsdemon.StartLevelView
             android:id="@+id/level9"
@@ -212,10 +212,10 @@
             grid:layout_gravity="fill"
             grid:layout_rowWeight="1"
             custom:level="12"
-            custom:numRedBalls="5"
+            custom:numRedBalls="8"
             custom:numPurpleBalls="5"
-            custom:numBlueBalls="5"
+            custom:numBlueBalls="8"
             custom:chambers="red;purple;purple;blue"
-            custom:doorWidth="0.5"/>
+            custom:doorWidth="0.333"/>
     </android.support.v7.widget.GridLayout>
 </LinearLayout>

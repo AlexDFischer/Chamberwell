@@ -46,7 +46,14 @@ public class MainActivity extends AppCompatActivity
 
         // sensitivity setup
         int sensitivity = Static.pref.getInt(Static.sensitivityString, Static.DEFAULT_SENSITIVITY);
-        Static.setSensitivity(sensitivity);
+        if (1 <= sensitivity && sensitivity <= 100)
+        {
+            Static.setSensitivity(sensitivity);
+        } else
+        {
+            Static.setSensitivity(Static.DEFAULT_SENSITIVITY);
+            Static.prefEditor.putInt(Static.sensitivityString, Static.DEFAULT_SENSITIVITY);
+        }
 
         // back button pausing/unpausing setup
         Static.backButtonPauses = Static.pref.getBoolean(Static.backPauseString, true);

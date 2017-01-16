@@ -31,9 +31,16 @@ public class SettingsActivity extends AppCompatActivity
         setTitle(getString(R.string.settings_activity_title));
 
         SeekBar seekBar = (SeekBar)(findViewById(R.id.sensitivityBar));
-        seekBar.setMax(100);
+        seekBar.setMax(99);
         seekBar.setOnSeekBarChangeListener(new SensitivityListener());
-        seekBar.setProgress(Static.pref.getInt(Static.sensitivityString, 50));
+        int sensitivity = Static.pref.getInt(Static.sensitivityString, Static.DEFAULT_SENSITIVITY);
+        if (!(1 <= sensitivity && sensitivity  <= 100))
+        {
+            sensitivity = Static.DEFAULT_SENSITIVITY;
+            Static.setSensitivity(sensitivity);
+        }
+        seekBar.setProgress(sensitivity - 1);
+        ((TextView) findViewById(R.id.sensitivityLabel)).setText(getString(R.string.settings_sensitivity_text).replace("*", Integer.toString(sensitivity)));
 
         CheckBox checkBox = (CheckBox)(findViewById(R.id.backPauseCheckBox));
         checkBox.setOnCheckedChangeListener(new BackPauseListener());
@@ -77,8 +84,9 @@ public class SettingsActivity extends AppCompatActivity
     private class SensitivityListener implements SeekBar.OnSeekBarChangeListener
     {
         @Override
-        public void onProgressChanged(SeekBar seekBar, int sensitivity, boolean bool)
+        public void onProgressChanged(SeekBar seekBar, int val, boolean bool)
         {
+            int sensitivity = val + 1;
             Static.prefEditor.putInt(Static.sensitivityString, sensitivity);
             Static.prefEditor.apply();
             Static.setSensitivity(sensitivity);
