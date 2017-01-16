@@ -37,6 +37,7 @@ class Static
     }
 
     static final String sensitivityString = "sensitivity", backPauseString = "backButtonPauses";
+    static final int DEFAULT_SENSITIVITY = 35;
 
     static SharedPreferences pref;
     static SharedPreferences.Editor prefEditor;

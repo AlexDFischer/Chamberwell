@@ -45,10 +45,10 @@ public class MainActivity extends AppCompatActivity
         Static.prefEditor.apply(); // we don't actually need to do this, just so we don't get a warning for calling edit() without commit() or apply()
 
         // sensitivity setup
-        int sensitivity = Static.pref.getInt(Static.sensitivityString, 50);
+        int sensitivity = Static.pref.getInt(Static.sensitivityString, Static.DEFAULT_SENSITIVITY);
         Static.setSensitivity(sensitivity);
 
-        // back button pausing.unpausing setup
+        // back button pausing/unpausing setup
         Static.backButtonPauses = Static.pref.getBoolean(Static.backPauseString, true);
     }
 
