@@ -2,7 +2,6 @@ package me.alexfischer.maxwellsdemon;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import java.util.Random;
 
@@ -242,8 +241,6 @@ class GameControllerImpl implements GameController
     {
         if (dimensionsSetUp)
         {
-            //Log.d("adf", "dimensions now are " + canvas.getWidth() + " x " + canvas.getHeight());
-
             // paint the background colors of the chambers
             int availableSpace = HEIGHT - 2 * WALL_WIDTH;
             for (int i = 0; i < chamberColors.length; i++)
@@ -287,7 +284,6 @@ class GameControllerImpl implements GameController
             }
         } else // first time we get to the paint method, set up the dimensions of the game
         {
-            Log.d("adf", "first dimensions are " + canvas.getWidth() + " x " + canvas.getHeight());
             WIDTH = canvas.getWidth();
             HEIGHT = canvas.getHeight();
             BALL_RADIUS = (int)(BALL_RADIUS_PROPORTION * WIDTH);

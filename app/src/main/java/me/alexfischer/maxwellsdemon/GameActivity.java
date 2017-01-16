@@ -8,11 +8,14 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +24,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
 {
     private GameView gameView;
     private PausedGameView pausedGameView;
+    private AdView adView;
     private int level;
     private SensorManager sensorManager;
     Sensor sensor;
@@ -38,11 +42,17 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         this.pausedGameView = new PausedGameView(this);
+        this.adView = (AdView)findViewById(R.id.adView);
 
         sensorManager = (SensorManager)(getSystemService(Context.SENSOR_SERVICE));
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        Log.d("adf", "gameFrameLayout size is " + findViewById(R.id.gameFrameLayout).getWidth() + " X " + findViewById(R.id.gameFrameLayout).getHeight());
+        // set up advertising
+        MobileAds.initialize(getApplicationContext(), getString(R.string.admob_app_id));
+        AdRequest adRequest;
+        adRequest = new AdRequest.Builder().build();
+        this.adView.loadAd(adRequest);
+
         Intent intent = getIntent();
         this.level = intent.getIntExtra("level", -1);
 
@@ -81,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         if (isRunning)
         {
-            this.onPauseButtonClick(findViewById(R.id.pauseButton));
+            this.pauseGame();
         }
     }
 
@@ -166,6 +176,7 @@ public class GameActivity extends AppCompatActivity implements SensorEventListen
         FrameLayout gameFrame = (FrameLayout)(findViewById(R.id.gameFrameLayout));
         gameFrame.removeAllViews();
         gameFrame.addView(pausedGameView);
+        gameFrame.addView(adView);
         Button button = (Button)(findViewById(R.id.pauseButton));
         button.setText(getString(R.string.unpause_button_text));
     }

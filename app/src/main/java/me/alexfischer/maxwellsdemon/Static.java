@@ -23,7 +23,7 @@ class Static
     /**
      * All of these are proportions of the canvas width
      */
-    static final double BALL_RADIUS_PROPORTION = 0.03, WALL_WIDTH_PROPORTION = 0.02, BALL_SPEED_PROPORTION = 0.008;
+    static final double BALL_RADIUS_PROPORTION = 0.03, WALL_WIDTH_PROPORTION = 0.03, BALL_SPEED_PROPORTION = 0.008;
 
     static boolean backButtonPauses = true;
 
